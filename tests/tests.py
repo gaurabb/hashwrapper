@@ -10,7 +10,7 @@ from hashwrapper.hashwrapper import hashwrapper
 
 class TestHashWrapper(unittest.TestCase):
 	## Test that the generateHash function accept an input string and returns a string value containing the hash
-	def test_can_create_hash(self):
+	def test_hash_wrapper(self):
 		##Section to set up the test
 		objGetHash = hashwrapper.HashWrapper()
 		
@@ -24,12 +24,12 @@ class TestHashWrapper(unittest.TestCase):
 		self.assertEqual(objGetHash.setDefaultHashAlgorithm(hash_alg_to_use_for_current_cycle), True)
 		
 		## Check >: Get the default random salt generator for the hash algorithm currently set in config file
-		default_salt_generator_used = 'uuid4' # Hadcoded for the development settings
+		default_salt_generator_used = 'uuid.uuid4()' # Hadcoded for the development settings
 		self.assertEqual(objGetHash.getDefaultSaltGenerator(), default_salt_generator_used)
 
-		## Check >: Check that an hash Hex string is returned
-		resultHash = objGetHash.generateHash("TestString")
-		self.assertEqual(type(resultHash), str)
+		## Check >: Check that a dictionary is returned
+		resultHash = objGetHash.generateHash("TestString", "")
+		self.assertEqual(type(resultHash), dict)
 
 		## Fail Intentionally for now. So we get some message back when everything else passes
 		self.fail('Finish everything!') 	
