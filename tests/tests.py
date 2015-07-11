@@ -20,8 +20,12 @@ class TestHashWrapper(unittest.TestCase):
 
 		## Check >: Set the hash algorithm to use for the current cycle. If the change needs to be reflected 
 		## in the config file, the value currently needs to be updated manually in the hashwrapper.config file.
+		hash_alg_to_use_for_current_cycle = 'sha512' # Hadcoded for the development settings; should be supplied runtime
+		self.assertEqual(objGetHash.setDefaultHashAlgorithm(hash_alg_to_use_for_current_cycle), True)
 		
-		
+		## Check >: Get the default random salt generator for the hash algorithm currently set in config file
+		default_salt_generator_used = 'uuid4' # Hadcoded for the development settings
+		self.assertEqual(objGetHash.getDefaultSaltGenerator(), default_salt_generator_used)
 
 		## Check >: Check that an hash Hex string is returned
 		resultHash = objGetHash.generateHash("TestString")

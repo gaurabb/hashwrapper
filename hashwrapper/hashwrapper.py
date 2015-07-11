@@ -12,5 +12,16 @@ class HashWrapper:
 	def getDefaultHashAlgorithm(self):
 		objConfigParser = ConfigParser.ConfigParser()
 		objConfigParser.readfp(open(r'hashwrapper.config'))
-		return objConfigParser.get('Default Settings','selected_hash_Algorithm')		
+		return objConfigParser.get('Default Settings','default_hash_Algorithm')	
+
+	def setDefaultHashAlgorithm(self, hashAlgToUse):	
+		algorithms_guaranteed= {'sha1', 'sha224', 'sha384', 'sha256', 'sha512', 'md5'}
+		if hashAlgToUse in algorithms_guaranteed :
+			return True
+		return False
+
+	def getDefaultSaltGenerator(self):
+		objConfigParser = ConfigParser.ConfigParser()
+		objConfigParser.readfp(open(r'hashwrapper.config'))
+		return objConfigParser.get('Default Settings','default_salt_generator')
 
