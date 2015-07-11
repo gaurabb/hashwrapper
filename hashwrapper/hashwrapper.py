@@ -1,5 +1,5 @@
 import hashlib
-import ConfigParser
+import configparser
 
 class HashWrapper:
 	def generateHash(self,stringToHash):
@@ -10,7 +10,7 @@ class HashWrapper:
 		return varMD5
 
 	def getDefaultHashAlgorithm(self):
-		objConfigParser = ConfigParser.ConfigParser()
+		objConfigParser = configparser.ConfigParser()
 		objConfigParser.readfp(open(r'hashwrapper.config'))
 		return objConfigParser.get('Default Settings','default_hash_Algorithm')	
 
@@ -21,7 +21,7 @@ class HashWrapper:
 		return False
 
 	def getDefaultSaltGenerator(self):
-		objConfigParser = ConfigParser.ConfigParser()
+		objConfigParser = configparser.ConfigParser()
 		objConfigParser.readfp(open(r'hashwrapper.config'))
 		return objConfigParser.get('Default Settings','default_salt_generator')
 
