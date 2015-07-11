@@ -11,10 +11,19 @@ from hashwrapper.hashwrapper import hashwrapper
 class TestHashWrapper(unittest.TestCase):
 	## Test that the generateHash function accept an input string and returns a string value containing the hash
 	def test_can_create_hash(self):
-		##Set up the test
+		##Section to set up the test
 		objGetHash = hashwrapper.HashWrapper()
 		
-		## Check that an hash Hex string is returned
+		## Check >: Get the default hash algorithm currently set in config file
+		default_hash_alg_in_config = 'sha256' # Hadcoded for the development settings
+		self.assertEqual(objGetHash.getDefaultHashAlgorithm(), default_hash_alg_in_config)
+
+		## Check >: Set the hash algorithm to use for the current cycle. If the change needs to be reflected 
+		## in the config file, the value currently needs to be updated manually in the hashwrapper.config file.
+		
+		
+
+		## Check >: Check that an hash Hex string is returned
 		resultHash = objGetHash.generateHash("TestString")
 		self.assertEqual(type(resultHash), str)
 
