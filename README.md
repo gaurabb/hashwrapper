@@ -4,8 +4,11 @@ Provides a wrapper around hashing methods [hashlib](https://docs.python.org/3.4/
 ## External packages used
 For Tests: [nose](https://nose.readthedocs.org/en/latest/)
 
-# Installation
-
+## Installation
+Install with using pip [Pypi Link](https://pypi.python.org/pypi/hashwrapper)
+```bash
+$ pip install hashwrapper
+```
 
 # Usage
 
