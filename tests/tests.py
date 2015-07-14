@@ -10,7 +10,8 @@ from nose.tools import *
 from hashwrapper.hashwrapper import hashwrapper
 
 class TestHashWrapper(unittest.TestCase):
-	## Test that the generateHash function accept an input string and returns a string value containing the hash
+	## Test that the generateHash function accept an input string and returns a dictionary
+	## containing the hash value and the salt used.
 	def test_hash_wrapper(self):
 		##Section to set up the test
 		objGetHash = hashwrapper.HashWrapper()
@@ -34,9 +35,7 @@ class TestHashWrapper(unittest.TestCase):
 		## Check that hash and salt us returned for each algorithm in hashlib.algorithms_guaranteed
 		hash_alg_to_use_for_current_cycle = 'sha512' # Hadcoded for the development settings; should be supplied runtime
 		for hash_alg_to_use_for_current_cycle in hashlib.algorithms_guaranteed:
-			print(hash_alg_to_use_for_current_cycle)
 			resultHash = objGetHash.generateHash("TestString", hash_alg_to_use_for_current_cycle)
-			print(resultHash)
 			self.assertEqual(type(resultHash), dict)
 
 		## Fail Intentionally for now. So we get some message back when everything else passes
