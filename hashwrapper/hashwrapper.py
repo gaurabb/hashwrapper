@@ -14,6 +14,12 @@ class HashWrapper:
 		return objConfigParser.get('Default Settings','default_salt_generator')
 
 	def getHash(self, stringToHash, hashName):
+		''' Function to generate the hash value for the given string using the specified hashing algorithm
+			Parameters:
+				stringToHash: The plain text string for which the hash value needs to be generated
+				hashName: The hashing algorithm to be used for generating the hash value
+			Returns:
+				Dictionary with the hash value and the salt used for generating the hash value'''
 		## Set the encoding for the input string
 		toHash = stringToHash.encode('utf-8')			
 		## Get Salt
