@@ -4,11 +4,13 @@ import uuid
 
 class HashWrapper:
 	def getDefaultHashAlgorithm(self):
+		''' Function to get the default hashing algorithm from the config file '''
 		objConfigParser = configparser.ConfigParser()
 		objConfigParser.read_file(open(r'hashwrapper.config'))
 		return objConfigParser.get('Default Settings','default_hash_Algorithm')	
 
 	def getDefaultSaltGenerator(self):
+		''' Function to get the default salt generator from the config file '''
 		objConfigParser = configparser.ConfigParser()
 		objConfigParser.read_file(open(r'hashwrapper.config'))
 		return objConfigParser.get('Default Settings','default_salt_generator')
@@ -44,6 +46,12 @@ class HashWrapper:
 		return resDict 
 
 	def generateHash(self,toHash, hashAlg):
+		''' Function to generate the hash value for the given string using the specified hashing algorithm
+			Parameters:
+				toHash: The plain text string for which the hash value needs to be generated
+				hashAlg: The hashing algorithm to be used for generating the hash value
+			Returns:
+				Dictionary with the hash value and the salt used for generating the hash value'''
 		## Define a Dict to hold the return value
 		hashAndSaltDict = dict
 		## Validations for stringToHash
