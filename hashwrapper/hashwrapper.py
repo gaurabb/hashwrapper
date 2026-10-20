@@ -6,13 +6,15 @@ class HashWrapper:
 	def getDefaultHashAlgorithm(self):
 		''' Function to get the default hashing algorithm from the config file '''
 		objConfigParser = configparser.ConfigParser()
-		objConfigParser.read_file(open(r'hashwrapper.config'))
+		with open('hashwrapper.config') as config_file:
+			objConfigParser.read_file(config_file)
 		return objConfigParser.get('Default Settings','default_hash_Algorithm')	
 
 	def getDefaultSaltGenerator(self):
 		''' Function to get the default salt generator from the config file '''
 		objConfigParser = configparser.ConfigParser()
-		objConfigParser.read_file(open(r'hashwrapper.config'))
+		with open('hashwrapper.config') as config_file:
+			objConfigParser.read_file(config_file)
 		return objConfigParser.get('Default Settings','default_salt_generator')
 
 	def getHash(self, stringToHash, hashName):
@@ -27,20 +29,12 @@ class HashWrapper:
 		## Get Salt
 		cur_Salt = self.getSalt().encode('utf-8')
 		## Generate the hash after concatenating the plaint text string with the salt string
-		if hashName == 'sha1':
-			varHash = hashlib.sha1(toHash+cur_Salt).hexdigest()
-		elif hashName == 'sha224':
-			varHash = hashlib.sha224(toHash+cur_Salt).hexdigest()
-		elif hashName == 'sha256':
-			varHash = hashlib.sha256(toHash+cur_Salt).hexdigest()
-		elif hashName == 'sha384':
-			varHash = hashlib.sha384(toHash+cur_Salt).hexdigest()
-		elif hashName == 'sha512':
-			varHash = hashlib.sha512(toHash+cur_Salt).hexdigest()
-		elif hashName == 'md5':
-			varHash = hashlib.md5(toHash+cur_Salt).hexdigest()
-		else:
-			varHash = "Error Generating the hash value."
+		if hashName not in hashlib.algorithms_guaranteed:
+			raise ValueError(f"Unsupported hash algorithm: '{hashName}'. Must be one of: {hashlib.algorithms_guaranteed}")
+		hasher = hashlib.new(hashName, toHash + cur_Salt)
+		if hasher.digest_size == 0:
+			raise ValueError("Hash algorithm requires an explicit digest length: " + hashName)
+		varHash = hasher.hexdigest()
 		## Build the dictionary to return
 		resDict = {'hash': varHash, 'salt': cur_Salt.decode("utf-8")}
 		return resDict 
